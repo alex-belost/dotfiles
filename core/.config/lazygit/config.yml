@@ -1,0 +1,8 @@
+git:
+  paging:
+    colorArg: always
+    pager: delta --dark --paging=never
+services:
+  'gitlabhq.paymentop.dev': 'gitlab:gitlabhq.paymentop.dev'
+  'gitlab.trisk.us': 'gitlab:gitlab.trisk.us'
+

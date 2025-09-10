@@ -1,0 +1,51 @@
+##!/bin/sh
+#
+## The file where the commit message is stored
+#COMMIT_MSG_FILE="$1"
+#
+## Get the current branch name
+#BRANCH_NAME=$(git rev-parse --abbrev-ref HEAD)
+#
+## Check if the branch contains a prefix (e.g., fix/)
+#if echo "$BRANCH_NAME" | grep -q "/"; then
+#  # Extract the prefix (before the '/')
+#  PREFIX=$(echo "$BRANCH_NAME" | sed -E 's|([^/]+)/.*|\1|')
+#
+#  # Extract the ticket number (e.g., FRO-33)
+#  TICKET_NUMBER=$(echo "$BRANCH_NAME" | sed -E 's|[^/]+/([^_]+)_.*|\1|')
+#
+#  # Extract the message part (after the '_', and split by '-' or '_')
+#  RAW_MESSAGE=$(echo "$BRANCH_NAME" | sed -E 's|[^/]+/[^_]+_(.*)|\1|')
+#
+#  # Replace hyphens and underscores with spaces for better readability
+#  MESSAGE=$(echo "$RAW_MESSAGE" | sed 's/[-_]/ /g')
+#
+#  # Extract the ticket prefix (e.g., FRO from FRO-33) and make it lowercase
+#  TICKET_PREFIX=$(echo "$TICKET_NUMBER" | sed -E 's|-.*||' | tr '[:upper:]' '[:lower:]')
+#
+#  # Create the commit message with the prefix
+#  BRANCH_COMMIT_MSG="${PREFIX}(${TICKET_PREFIX}) ${MESSAGE} [${TICKET_NUMBER}]"
+#
+#else
+#  # No prefix, just extract the ticket number and message
+#  TICKET_NUMBER=$(echo "$BRANCH_NAME" | sed -E 's|([^_]+)_.*|\1|')
+#
+#  # Extract the message part (after the '_', and split by '-' or '_')
+#  RAW_MESSAGE=$(echo "$BRANCH_NAME" | sed -E 's|[^_]+_(.*)|\1|')
+#
+#  # Replace hyphens and underscores with spaces for better readability
+#  MESSAGE=$(echo "$RAW_MESSAGE" | sed 's/[-_]/ /g')
+#
+#  # Create the commit message without the prefix
+#  BRANCH_COMMIT_MSG="[${TICKET_NUMBER}] ${MESSAGE}"
+#fi
+#
+## Read the existing commit message
+#EXISTING_COMMIT_MSG=$(cat "$COMMIT_MSG_FILE")
+#
+## Write the branch-based message at the top, followed by the original commit message
+#{
+#  echo "# ${BRANCH_COMMIT_MSG}"
+#  echo ""
+#  echo "$EXISTING_COMMIT_MSG"
+#} >"$COMMIT_MSG_FILE"

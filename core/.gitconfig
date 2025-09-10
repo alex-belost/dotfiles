@@ -1,0 +1,88 @@
+[core]
+	editor = NVIM_APPNAME=LazyVim nvim
+  pager = delta
+  excludesfile = ~/.config/store/git/.gitignore
+  compression = 9
+  whitespace = 'error'
+  preloadindex = true
+
+[credential]
+  hper = cache
+
+[interactive]
+  diffFilter = delta --color-only
+
+[delta]
+  navigate = true
+  line-numbers = true
+  side-by-side = false
+	features = side-by-side line-numbers decorations
+	whitespace-error-style = 22 reverse
+
+[commit]
+	; template = ~/.config/store/git/.gitmessage-template
+	verbose = true
+	gpgSign = true
+
+[advice]
+  addEmptyPathspec = false
+  pushNonFastForvard = false
+  statusHints = false
+
+[merge]
+  conflictstyle = diff3
+  tool = nvimdiff4
+	prompt = false
+
+[mergetool]
+	keepBackup = false
+
+[mergetool "nvimdiff4"]
+  layout = "LOCAL,REMOTE / MERGED"
+  cmd = nvim -d $LOCAL $REMOTE $MERGED -c '$wincmd w' -c 'wincmd J'
+
+[diff]
+  colorMoved = default
+  tool = nvimdiff
+	algorithm = patience
+	compactionHeuristic = true
+
+[difftool "nvimdiff"]
+  cmd = nvim -d $LOCAL $REMOTE -c 'wincmd w' -c 'wincmd L'
+
+[gpg]
+	program = /usr/local/bin/gpg
+
+[tag]
+	gpgSign = true
+
+[alias]
+	s = status
+
+[user]
+	name = Oleksandr Bilostotskyi
+	email = obilostotskyi@trisk.io
+	signingKey = 7F21FC2935775C26
+
+[delta "interactive"]
+  keep-plus-minus-markers = false
+
+[delta "decorations"]
+  commit-decoration-style = blue ol
+  # commit-style = raw
+  # file-style = omit
+  hunk-header-decoration-style = blue box
+  hunk-header-file-style = red
+  hunk-header-line-number-style = "#067a00"
+  hunk-header-style = file line-number syntax
+	commit-decoration-style = bold yellow box ul
+	file-style = bold yellow ul
+	# file-decoration-style = none
+
+[init]
+	defaultBranch = main
+  templatedir = ~/.config/core/git/templates
+[tag]
+	gpgSign = true
+[gpg]
+	program = /usr/local/bin/gpg

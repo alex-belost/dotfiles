@@ -1,0 +1,12 @@
+# ignore IDE specific files
+.idea/
+.vscode/
+.cursor/*
+*.sw*
+.phpactor.json
+
+.DS_Store
+
+.gemini.yml
+GEMINI.md
+.gemini/
