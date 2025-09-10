@@ -1,88 +1,48 @@
-# GNU Stow Dotfiles Setup
+# Dotfiles
 
-GNU Stow is a symlink manager, perfect for managing dotfiles across different systems.
+## Automated Setup
 
----
+This repository includes a `setup.sh` script to automate the setup of a new macOS development environment.
 
-## Installation
+### What it does:
 
-**Linux (Debian/Ubuntu):**
+- Installs [Homebrew](https://brew.sh/) if it's not already present.
+- Installs a list of essential command-line tools and applications (e.g., `git`, `neovim`, `zsh`).
+- Configures Zsh as the default shell.
 
-```bash
-sudo apt install stow
-```
+### How to run it:
 
-**macOS (Homebrew):**
+1.  Make the script executable:
+    ```bash
+    chmod +x setup.sh
+    ```
 
-```bash
-brew install stow
-```
+2.  Run the script:
+    ```bash
+    ./setup.sh
+    ```
 
----
+You will be prompted to select your system's architecture (Apple Silicon or Intel) and may be asked for your password for some commands.
 
-## Project Structure
-
-Each folder inside `dotfiles/` should replicate the target filesystem structure:
-
-```
-~/dotfiles/
-├── core/
-│   └── .config/
-├── nvim/
-│   └── .config/
-│       └── nvim/
-│           └── init.lua
-```
-
-Example: `dotfiles/core/.config/...` → `~/.config/...`
-
----
+## Managed with GNU Stow.
 
 ## Usage
 
-### 1. Navigate to your dotfiles directory:
+1.  **Clone the repository:**
+    ```bash
+    git clone <your-repo-url> ~/dotfiles
+    ```
 
-```bash
-cd ~/dotfiles
-```
+2.  **Navigate to the directory:**
+    ```bash
+    cd ~/dotfiles
+    ```
 
-### 2. Create symlinks:
-
-```bash
-stow core
-stow nvim
-```
-
-By default, symlinks are created in the parent directory (`..`, usually your `~` home directory).
-
----
-
-## Remove symlinks
-
-```bash
-stow -D core
-```
-
----
-
-## Restow (remove and recreate)
-
-```bash
-stow -R core
-```
-
----
-
-## Specify a custom target directory
-
-```bash
-stow -t ~ bash
-stow -t ~/.config nvim
-```
-
-Use `-t` to manually specify the destination path.
-
----
+3.  **Create symlinks:**
+    This command will symlink the contents of the `core` directory into your home directory (`~`).
+    ```bash
+    stow core
+    ```
 
 ## Useful Flags
 
@@ -93,27 +53,3 @@ Use `-t` to manually specify the destination path.
 | `-t <path>` | Target directory (default is `..`)              |
 | `--adopt`   | Move existing files into stow-managed structure |
 | `-v`        | Verbose mode (for debugging)                    |
-
----
-
-## Example
-
-```bash
-git clone git@github.com:username/dotfiles.git ~/dotfiles
-cd ~/dotfiles
-stow core
-stow nvim
-```
-
----
-
-## Tips
-
-- Always run `stow` from the root of the dotfiles repository.
-- Folder structure must exactly match the desired target paths.
-- If a file already exists, remove it first or use `--adopt`:
-
-```bash
-stow --adopt bash
-```
-
