@@ -31,11 +31,6 @@ source $(brew --prefix nvm)/nvm.sh
 ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
 
 # Aliases
-alias lvim!="sudo NVIM_APPNAME=LazyVim nvim"
-alias cvim!="sudo NVIM_APPNAME=NvChad nvim"
-alias lvim="NVIM_APPNAME=LazyVim nvim"
-alias cvim="NVIM_APPNAME=NvChad nvim"
-alias avim="NVIM_APPNAME=AstroNvim nvim"
 alias lg="lazygit"
 alias z="zoxide"
 alias ls='eza'
@@ -114,36 +109,3 @@ zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
 zstyle ':completion:*' menu no
 zstyle ':fzf-tab:complete:cd:*' fzf-preview 'ls --color $realpath'
 zstyle ':fzf-tab:complete:__zoxide_z:*' fzf-preview 'ls --color $realpath'
-
-function e() {
-    local config="default"
-    local default_ide="LazyVim"
-    local items=( "default" "LazyVim" "AstroNvim" )
-
-    local is_forse=$([[ "$1" = "-f" ]]; echo $?)
-    local is_forse_search=$([[ "$1" = "-fs" ]]; echo $?)
-    local is_search=$([[ "$1" = "-s" ]]; echo $?)
-
-    if [[ $is_forse == 0 || $is_search == 0 || $is_forse_search == 0 ]] then
-        shift
-    fi
-
-    if [[ $is_search != 0 && $is_forse_search != 0 ]]; then
-        config=$default_ide
-    else
-        config=$(printf "%s\n" "${items[@]}" | fzf --prompt=" Neovim Configs 󱈇  " --height=~50% --layout=reverse --border --exit-0)
-
-        if [[ -z $config ]]; then
-            echo "Nothing selected"
-            return 0
-        elif [[ $config == "default" ]]; then
-            config=""
-        fi
-    fi
-
-    if [[ $is_forse == 0 || $is_forse_search == 0 ]] then
-        sudo NVIM_APPNAME=$config nvim $@
-    else
-        NVIM_APPNAME=$config nvim $@
-    fi
-}
